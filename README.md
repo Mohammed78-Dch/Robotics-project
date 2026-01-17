@@ -1,6 +1,3 @@
-# **README.md** - Projet Robotique Intelligent
-
-```markdown
 # 🌿 Smart Farming System with Facial Access Control
 
 *An integrated IoT solution combining automated environmental management with secure facial recognition access control, powered by ESP32.*
@@ -15,10 +12,13 @@
 ## 📋 Project Overview
 
 This project implements a **complete Smart Farming and Security System** with two interconnected components:
+
 1. **ESP32-based IoT System** (Hardware + MicroPython) - Controls sensors, actuators, and user interfaces
 2. **Facial Recognition API** (Python/Flask) - Handles face detection and identification
 
 The system combines **automated irrigation management** with **facial recognition-based access control**, creating an innovative integrated solution for smart homes and small-scale agriculture.
+
+---
 
 ## 📁 Repository Structure
 
@@ -41,15 +41,18 @@ Smart_Farming_System/
             └── ...
 ```
 
+---
+
 ## 🏗️ System Architecture
 
 ### Complete System Flow
+
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                        Facial Recognition Server                     │
 │                      (Flask API on External Host)                    │
 │                                                                      │
-│  /recognize → OpenCV Face Detection → LBPH Recognition → JSON Response
+│  /recognize → OpenCV Face Detection → LBPH Recognition → JSON       │
 └───────────────────────────────┬──────────────────────────────────────┘
                                 │ HTTPS Request/Response
                                 ▼
@@ -58,7 +61,7 @@ Smart_Farming_System/
 │                      (MicroPython - Core Logic)                      │
 │                                                                      │
 │  Sensors → Data Processing → Decision Logic → Actuators/Notifications
-└─────────────────┬────────────────────────────────────────────────────┘
+└─────────────┬────────────────────────────────────────────────────────┘
                   │
     ┌─────────────┼─────────────┐
     ▼             ▼             ▼
@@ -69,9 +72,12 @@ Smart_Farming_System/
  • Water Valve
 ```
 
+---
+
 ## 🚀 Quick Start Guide
 
 ### Prerequisites
+
 - **Python 3.8+** (for facial recognition server)
 - **Wokwi Account** (for ESP32 simulation)
 - **Telegram Account** (for bot control)
@@ -84,8 +90,6 @@ Smart_Farming_System/
 cd Detection_faciale_API
 
 # Install Python dependencies
-pip install -r requirements.txt
-# Or manually install:
 pip install flask opencv-python numpy scikit-learn pillow
 
 # Train the model (if not already trained)
@@ -120,7 +124,8 @@ ngrok http 5000
 
 ### 3. Configuration Files
 
-#### ESP32 Configuration (`main.py` - update these values)
+#### ESP32 Configuration (`main.py`)
+
 ```python
 # Network Configuration
 WIFI_SSID = "your_wifi_name"
@@ -140,6 +145,7 @@ WEATHERSTACK_API_KEY = "your_weatherstack_key"
 ```
 
 #### Facial Recognition Server Training
+
 1. Place face images in `Detection_faciale_API/training_data/`
 2. Structure:
    ```
@@ -154,9 +160,12 @@ WEATHERSTACK_API_KEY = "your_weatherstack_key"
    ```
 3. Run training: `python main.py --train`
 
+---
+
 ## 🔌 Hardware Connection Diagram
 
 ### Complete Wiring Table
+
 | Component | Pin | ESP32 GPIO | Notes |
 |-----------|-----|------------|-------|
 | **Sensors** | | | |
@@ -175,9 +184,12 @@ WEATHERSTACK_API_KEY = "your_weatherstack_key"
 | | SCL | GPIO 18 | |
 | Doorbell Button | Pin 1 | GPIO 32 | Pull-down, 3.3V |
 
+---
+
 ## 📱 System Features
 
 ### 1. Intelligent Access Control
+
 - **Facial Recognition**: Server-based processing for accuracy
 - **Progressive Door Opening**: Smooth 0-90° servo movement
 - **Visual Feedback**: LCD messages + LED indicators
@@ -185,30 +197,28 @@ WEATHERSTACK_API_KEY = "your_weatherstack_key"
 - **Anti-Spam**: 10-second cooldown on motion detection
 
 ### 2. Smart Irrigation System
+
 - **Weather-Based Decisions**: Uses Weatherstack API data
 - **Automatic Activation**: When temperature > 28°C AND humidity < 75%
 - **Resource Monitoring**: Real-time water tank level tracking
 - **Manual Override**: Telegram bot commands for control
 
 ### 3. Continuous Monitoring
+
 - **Environmental Sensors**: Temperature, humidity, water level
 - **Perimeter Security**: PIR motion detection
 - **Multi-Display**: LCD for status, OLED for weather data
 - **Remote Access**: Complete control via Telegram bot
 
 ### 4. Telegram Bot Interface
+
 | Command | Description | Response Format |
 |---------|-------------|-----------------|
 | `/start` | Welcome message | Basic instructions |
 | `/status` | Full system report | Weather + Sensors + Water level |
 | Manual Pump | Via custom buttons | Pump activation confirmation |
 
-
-### ESP32 Simulation Tests
-1. **Access Control Test**: Press doorbell in simulation
-2. **Irrigation Test**: Set mock temperature > 28°C
-3. **Telegram Integration**: Send `/status` command
-4. **Sensor Verification**: Check LCD updates every 10s
+---
 
 ## 🔧 Troubleshooting Guide
 
@@ -223,7 +233,9 @@ WEATHERSTACK_API_KEY = "your_weatherstack_key"
 | **WiFi Disconnects** | Weak signal/power issues | Check power supply, move closer to router |
 
 ### Debug Mode
+
 Enable debug prints in `main.py`:
+
 ```python
 DEBUG_MODE = True  # Set to True for detailed logs
 
@@ -231,6 +243,8 @@ def debug_print(message):
     if DEBUG_MODE:
         print(f"[DEBUG] {message}")
 ```
+
+---
 
 ## 📈 Performance Metrics
 
@@ -240,22 +254,28 @@ def debug_print(message):
 - **System Uptime**: 99% (with stable WiFi)
 - **Power Consumption**: ~150mA (active), < 10mA (sleep mode)
 
+---
+
 ## 🚀 Deployment Options
 
 ### 1. Local Development
+
 - Run facial recognition server locally
 - Use Wokwi for ESP32 simulation
 - Test with ngrok for external access
 
 ### 2. Cloud Deployment
+
 ```bash
 # Deploy Flask server to Heroku/Render
 # 1. Create requirements.txt
 # 2. Create Procfile: web: python main.py
 # 3. Deploy via Git
+```
 
-# For Render.com:
-render.yaml
+**For Render.com:**
+
+```yaml
 services:
   - type: web
     name: face-recognition-api
@@ -265,46 +285,60 @@ services:
 ```
 
 ### 3. Physical Deployment
+
 1. Flash ESP32 with MicroPython
 2. Upload `main.py` via Thonny IDE
 3. Connect all sensors/actuators per wiring table
 4. Power with 5V/2A supply
 
+---
+
 ## 🔮 Future Enhancements
 
 ### Priority 1 (Short-term)
+
 - [ ] Add OLED display for dedicated weather info
 - [ ] Implement microSD card for event logging
 - [ ] Create web dashboard for system monitoring
 - [ ] Add multi-user support for Telegram
 
 ### Priority 2 (Medium-term)
+
 - [ ] Integrate MQTT for efficient IoT communication
 - [ ] Add Home Assistant integration
 - [ ] Implement power-saving sleep modes
 - [ ] Develop mobile app (Flutter/React Native)
 
 ### Priority 3 (Long-term)
+
 - [ ] Add voice control (Alexa/Google Assistant)
 - [ ] Implement predictive irrigation with ML
 - [ ] Add solar power support
 - [ ] Create commercial product version
 
+---
+
 ## 📚 Learning Resources
 
 ### For ESP32/MicroPython
+
 - [MicroPython Documentation](https://docs.micropython.org/)
 - [ESP32 GPIO Guide](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/)
 - [Wokwi Learning Center](https://docs.wokwi.com/)
 
 ### For Facial Recognition
+
 - [OpenCV Face Recognition Tutorial](https://docs.opencv.org/master/da/d60/tutorial_face_main.html)
 - [Flask REST API Guide](https://flask.palletsprojects.com/en/2.0.x/tutorial/)
 - [LBPH Algorithm Explanation](https://towardsdatascience.com/face-recognition-how-lbph-works-90ec258c3d6b)
 
+---
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
 
 ## 🤝 Contributing
 
@@ -323,4 +357,3 @@ We welcome contributions! Please follow these steps:
 ---
 
 *Last Updated: June 2024 | Version: 2.0.0 | Compatible: ESP32, MicroPython 1.19, Python 3.8+*
-```
